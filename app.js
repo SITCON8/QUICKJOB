@@ -1,1 +1,24 @@
-const modal=document.querySelector("#modal");document.querySelectorAll("[data-modal]").forEach(b=>b.onclick=()=>{document.querySelector("#mt").textContent=b.dataset.modal;modal.showModal()});document.querySelector("#close").onclick=()=>modal.close();document.querySelectorAll("[data-job]").forEach(b=>b.onclick=()=>{document.querySelector("#mt").textContent=b.dataset.job+" — offre de démonstration";modal.showModal()});document.querySelector("#menu").onclick=()=>document.querySelector("#nav").classList.toggle("open");function filter(){let q=document.querySelector("#q").value.toLowerCase(),t=document.querySelector("#type").value,z=document.querySelector("#zone").value,n=0;document.querySelectorAll("article").forEach(a=>{let ok=a.dataset.title.includes(q)&&(!t||a.dataset.type===t)&&(!z||a.dataset.zone===z);a.hidden=!ok;if(ok)n++});document.querySelector("#empty").hidden=!!n}document.querySelector("#find").onclick=filter;["q","type","zone"].forEach(id=>document.querySelector("#"+id).addEventListener("input",filter));
+const SUPABASE_URL = "https://khpnrnvairjryhgwkdef.supabase.co";
+const SUPABASE_KEY = "sb_publishable_w24EpyUG0Q6njg9eaSE43Q_hcVluBUA";
+
+async function chargerOffres() {
+  try {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/offres?select=*`, {
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Impossible de récupérer les offres");
+    }
+
+    const offres = await response.json();
+    console.log("Offres récupérées :", offres);
+  } catch (erreur) {
+    console.error("Erreur Supabase :", erreur);
+  }
+}
+
+chargerOffres();
