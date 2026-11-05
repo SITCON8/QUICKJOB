@@ -1,0 +1,30 @@
+# Local secrets and environment files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Supabase local credentials / state
+.supabase/
+supabase/.temp/
+supabase/.branches/
+
+# Database exports and backups
+QUICKJOB-backups/
+backups/
+*.sql
+*.dump
+*.backup
+*.tar
+*.tar.gz
+*.zip
+
+# Local credentials and private keys
+credentials.json
+secrets.json
+*service-role*
+*service_role*
+*secret*
